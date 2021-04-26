@@ -1,0 +1,30 @@
+#app {
+  margin: 0 auto;
+  margin-top: 4vh;
+  width: 1000px;
+  height: 500px;
+  padding: 25px;
+  background-color: darkgray;
+  border: 2px solid black;
+}
+nav {
+  position: absolute;
+  left: 400px;
+  top: 30px;
+}
+h1 {
+  position: absolute;
+  left: 500px;
+  top: 10px;
+}
+#users {
+  position: absolute;
+  left: 350px;
+  top: 110px;
+}
+
+#messages {
+  position: absolute;
+  left: 550px;
+  top: 110px;
+}
