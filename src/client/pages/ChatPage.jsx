@@ -4,24 +4,31 @@ import * as ReactDOM from "react-dom";
 import { ChatView } from "../views/ChatView";
 
 export function ChatPage() {
-    const [chatLog, setChatLog] = useState([]);
-    const [ws, setWs] = useState();
-    useEffect(() => {
-        const ws = new WebSocket("ws://localhost:3000");
-        ws.onopen = (event) => {
-            console.log("opened", event);
-        };
-        ws.onmessage = (event) => {
-            console.log("from server", event);
-            setChatLog((chatLog) => [...chatLog, event.data]);
-        };
-        ws.onclose = (event) => {
-            console.log("close", event);
-        };
-        setWs(ws);
-    }, []);
+    const [username, setUsername] = useState();
+    if (!username) {
+        return <ChatLoginPage onLogin={(username) => setUsername(username)} />;
+    }
 
+    return <ChatView username={username} />;
+}
+
+function ChatLoginPage({ onLogin }) {
+    const [username, setUsername] = useState("");
+    function handleSubmit(e) {
+        e.preventDefault();
+        onLogin(username);
+    }
     return (
-        <ChatView chatLog={chatLog} onSendMessage={(message) => ws.send(message)} />
+        <div>
+            <h1>Please log in</h1>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <button>Login</button>
+            </form>
+        </div>
     );
 }

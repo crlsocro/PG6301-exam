@@ -6,7 +6,7 @@ import {LoadingView} from "../views/LoadingView";
 
 
 
-export function ListUserPage({userApi}) {
+export function ListUserPage({userApi }) {
     const { data: users, error, loading, reload } = useLoading(
         async () => await userApi.listUsers()
     );

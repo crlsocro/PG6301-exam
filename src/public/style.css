@@ -12,6 +12,11 @@ nav {
   left: 400px;
   top: 30px;
 }
+#profile {
+  position: absolute;
+  left: 400px;
+  top: 30px;
+}
 h1 {
   position: absolute;
   left: 500px;

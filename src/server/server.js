@@ -3,14 +3,20 @@ const path = require("path");
 const fetch = require("node-fetch");
 const userApi = require("./userApi");
 const bodyParser = require("body-parser");
+const cors = require("cors");
+
 const app = express();
 app.use(bodyParser.json());
+app.use(cors());
+const wsServer = require("./websocket");
 app.use("/api/users", userApi);
+
 
 const googleDiscoveryURL =
     "https://accounts.google.com/.well-known/openid-configuration";
 const microsoftDiscoveryURL =
     "https://login.microsoftonline.com/common/.well-known/openid-configuration";
+
 async function fetchJson(url, options) {
     const res = await fetch(url, options);
     if (!res.ok) {
@@ -46,9 +52,15 @@ app.use((req, res, next) => {
             path.resolve(__dirname, "..", "..", "dist", "index.html")
         );
     }
-    next();
+    return next();
 });
 
 const server = app.listen(3000, () => {
+    server.on("upgrade", (req, socket, head) => {
+        wsServer.handleUpgrade(req, socket, head, (socket) => {
+            // This will pass control to `wsServer.on("connection")`
+            wsServer.emit("connection", socket, req);
+        });
+    });
     console.log(`server started on http://localhost:${server.address().port}`);
 });
