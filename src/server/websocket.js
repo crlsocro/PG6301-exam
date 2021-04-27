@@ -13,14 +13,6 @@ wsServer.on("connection", (socket) => {
         const wsMessage = JSON.parse(msg);
         const { type } = wsMessage;
 
-        socket.on('chat',function(data){
-            io.socket.emit('chat', data)
-        });
-
-        socket.on('typing', function (data){
-            socket.broadcast.emit('typing', data)
-        });
-
         if (type === "message") {
             const { message } = wsMessage;
             const username = socketUsername;

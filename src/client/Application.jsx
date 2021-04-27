@@ -99,10 +99,10 @@ export function Application() {
                     <EditUserPage userApi={userApi} />
                 </Route>
                 <Route exact path={"/CreateMessage"}>
-                    <CreateMessages messageApi={messageApi}/>
+                    <CreateMessages userApi = {userApi} messageApi={messageApi}/>
                 </Route>
                 <Route exact path={"/Chat"}>
-                    <ChatPage messageApi={messageApi}/>
+                    <ChatPage />
                 </Route>
                 <Route path={"/profile"}>
                     <ProfilePage loadProfile={loadProfile} />

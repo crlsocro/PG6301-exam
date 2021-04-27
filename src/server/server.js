@@ -12,8 +12,6 @@ app.use(bodyParser.json());
 app.use(cors());
 
 const wsServer = require("./websocket");
-const messages =
-
 app.use("/api/users", userApi);
 app.use("/api/messages", messageApi);
 app.use("/apiRouter", apiRouter);
