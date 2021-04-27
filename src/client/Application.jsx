@@ -1,18 +1,17 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import { BrowserRouter, Link } from "react-router-dom";
-import { Route, Switch } from "react-router";
-import { ProfilePage } from "./pages/ProfilePage";
+import {useEffect, useState} from "react";
+import {BrowserRouter, Link} from "react-router-dom";
+import {Route, Switch} from "react-router";
+import {ProfilePage} from "./pages/ProfilePage";
 import {fetchJSON, postJSON} from "./http";
-import { LoginPage } from "./pages/LoginPage";
-import { LoginCallbackPage } from "./pages/LoginCallbackPage";
+import {LoginPage} from "./pages/LoginPage";
+import {LoginCallbackPage} from "./pages/LoginCallbackPage";
 import {ChatPage} from "./pages/ChatPage";
 import {CreateMessages} from "./pages/CreateMessages";
 import {ListUserPage} from "./pages/ListUserPage";
 import {RegisterPage} from "./pages/RegisterPage";
 import {EditUserPage} from "./pages/EditUserPage";
-
-
+import {ListMessages} from "./pages/ListMessages";
 
 function useLocalStorage(key) {
     const [value, setValue] = useState(() =>
@@ -68,6 +67,20 @@ export function Application() {
                 json: {firstName, lastName, email},
             }),
     };
+    const messageApi = {
+        listMessage: async () => await fetchJSON("/api/messages"),
+        createMessage: async ({text}) =>{
+            return postJSON("/api/messages", {
+                method: "POST",
+                json: {text},
+            });
+        },
+        updateUser: async (id, {text}) =>
+            postJSON(`/api/messages/${id}`, {
+                method: "PUT",
+                json: {text},
+            }),
+    };
 
     return (
         <BrowserRouter>
@@ -86,10 +99,10 @@ export function Application() {
                     <EditUserPage userApi={userApi} />
                 </Route>
                 <Route exact path={"/CreateMessage"}>
-                    <CreateMessages userApi={userApi}/>
+                    <CreateMessages messageApi={messageApi}/>
                 </Route>
                 <Route exact path={"/Chat"}>
-                    <ChatPage />
+                    <ChatPage messageApi={messageApi}/>
                 </Route>
                 <Route path={"/profile"}>
                     <ProfilePage loadProfile={loadProfile} />
@@ -103,7 +116,9 @@ export function Application() {
                         onAccessToken={(access_token) => setAccess_token(access_token)}
                     />
                 </Route>
-                <Route exact path={"/SeeMessages"}></Route>
+                <Route exact path={"/messages"}>
+                    <ListMessages messageApi={messageApi}/>
+                </Route>
                 <Route exact path={"/RespondToMessage"}></Route>
                 <Route exact path={"/"}>
                     <h1>Message Application</h1>
@@ -128,7 +143,7 @@ export function Application() {
                             <Link to={"/CreateMessage"}>Create Message</Link>
                         </li>
                         <li>
-                            <Link to={"/SeeMessages"}>See Messages</Link>
+                            <Link to={"/messages"}>See Messages</Link>
                         </li>
                         <li>
                             <Link to={"/RespondToMessage"}>Respond to Message</Link>

@@ -2,14 +2,21 @@ const express = require("express");
 const path = require("path");
 const fetch = require("node-fetch");
 const userApi = require("./userApi");
+const messageApi = require("./messageApi");
+const apiRouter = require("./apiRouter");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors());
+
 const wsServer = require("./websocket");
+const messages =
+
 app.use("/api/users", userApi);
+app.use("/api/messages", messageApi);
+app.use("/apiRouter", apiRouter);
 
 
 const googleDiscoveryURL =
