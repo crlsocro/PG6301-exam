@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import Select from 'react-select'
 import { Link } from "react-router-dom";
 import {useLoading} from "../views/useLoading";
 import {ErrorView} from "../views/ErrorView";
@@ -10,29 +11,25 @@ export function CreateMessages({userApi}) {
     const { data: users, error, loading, reload } = useLoading(
         async () => await userApi.listUsers()
     );
+
     if (error) {
         return <ErrorView error={error} reload={reload} />;
     }
+
     if (loading || !users) {
         return <LoadingView />;
     }
+
     return (
         <>
             <h1>List Users</h1>
-            <div>
-                {users.map(({ id, firstName, lastName, email }) => (
-                     function(e) {
-                    var options = e.target.options;
-                    var value = [];
-                    for (var i = 0, l = options.length; i < l; i++) {
-                    if (options[i].selected) {
-                    value.push(options[i].value);
-                        }
-                    }
-                    this.props.someCallback(value);
-                    }
-                    ))}
-            </div>
+            <select
+                onChange={(e) => (e.target.value)}
+            >
+            {users.map(({ id, firstName, lastName}) => (
+                    <option value={`/users/${id}`}>{firstName} {lastName}</option>
+            ))}
+            </select>
         </>
     );
 
