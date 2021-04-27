@@ -1,5 +1,5 @@
 {
-  "name": "PG6301 exam",
+  "name": "PG6301exam",
   "version": "1.0.0",
   "devDependencies": {
     "@babel/core": "^7.13.10",

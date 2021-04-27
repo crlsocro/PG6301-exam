@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {BrowserRouter, Link} from "react-router-dom";
-import {Redirect, Route, Switch} from "react-router";
+import { Redirect, Route, Switch} from "react-router";
 import {ProfilePage} from "./pages/ProfilePage";
 import {fetchJSON, postJSON} from "./http";
 import {LoginPage} from "./pages/LoginPage";
@@ -13,23 +13,10 @@ import {RegisterPage} from "./pages/RegisterPage";
 import {EditUserPage} from "./pages/EditUserPage";
 import {ListMessages} from "./pages/ListMessages";
 
-function useLocalStorage(key) {
-    const [value, setValue] = useState(() =>
-        JSON.parse(localStorage.getItem(key))
-    );
-    useEffect(() => {
-        if (value) {
-            localStorage.setItem(key, JSON.stringify(value));
-        } else {
-            localStorage.removeItem(key);
-        }
-    }, [value]);
-
-    return [value, setValue];
-}
 
 export function Application() {
-    const [access_token, setAccess_token] = useLocalStorage("access_token");
+
+    const [access_token, setAccess_token] = useState();
 
     const googleIdentityProvider = {
         discoveryURL:
@@ -82,45 +69,47 @@ export function Application() {
             }),
     };
 
+
+        // This code does not lok pretty, but:  {!access_token?(<Redirect to ={"/login"}/>):(<Switch>
+        //Will force the application to start on loginPage, and you can not do anything/redirect yourself to another pages
+        //So, to escape this situation, you will have to login
     return (
         <BrowserRouter>
-            <nav>
-                <Link to={"/"}>Home</Link>
-            </nav>
             <main>
-            <Switch>
-                <Route  path={"/Register"}>
-                    {!access_token ? (<Redirect to ={"/"}/>):
-                        (<RegisterPage userApi={userApi} />)}
+                <Switch>
+                    <Route path={"/profile"}>
+                        <ProfilePage loadProfile={loadProfile} />
+                    </Route>
+                    <Route path={"/login"} exact>
+                        <LoginPage identityProvider={microsoftIdentityProvider} />
+                    </Route>
+                    <Route path={"/login/callback"}>
+                        <LoginCallbackPage identityProvider={microsoftIdentityProvider} onAccessToken={access_token => setAccess_token(access_token)}/>
+                    </Route>
+                </Switch>
+
+
+                {!access_token?(<Redirect to ={"/login"}/>):(<Switch>
+                    <nav>
+                        <Link to={"/"}>Home</Link>
+                    </nav>
+                <Route path={"/Register"}>
+                    <RegisterPage userApi={userApi} />
                 </Route>
                 <Route exact path={"/ShowUsers"}>
-                    {!access_token ? (<Redirect to ={"/"}/>):
-                        (<ListUserPage userApi={userApi}/>)}
+                    <ListUserPage userApi={userApi}/>
                 </Route>
                 <Route path={"/users/:id/edit"}>
-                    {!access_token ? (<Redirect to ={"/"}/>):
-                        (<EditUserPage userApi={userApi} />)}
+                    <EditUserPage userApi={userApi} />
                 </Route>
                 <Route exact path={"/CreateMessage"}>
-                    {!access_token ? (<Redirect to ={"/"}/>):
-                        (<CreateMessages userApi = {userApi} messageApi={messageApi}/>)}
+                    <CreateMessages userApi = {userApi} messageApi={messageApi}/>
                 </Route>
                 <Route exact path={"/Chat"}>
-                    {!access_token ? (<Redirect to ={"/"}/>):
-                        (<ChatPage />)}
-                </Route>
-                <Route path={"/profile"}>
-                    <ProfilePage loadProfile={loadProfile} />
-                </Route>
-                <Route path={"/login"} exact>
-                    <LoginPage identityProvider={microsoftIdentityProvider} />
-                </Route>
-                <Route path={"/login/callback"}>
-                    <LoginCallbackPage identityProvider={microsoftIdentityProvider} onAccessToken={access_token => setAccess_token(access_token)}/>
+                    <ChatPage />
                 </Route>
                 <Route exact path={"/messages"}>
-                    {!access_token ? (<Redirect to ={"/"}/>):
-                        (<ListMessages messageApi={messageApi}/>)}
+                       <ListMessages messageApi={messageApi}/>
                 </Route>
                 <Route exact path={"/RespondToMessage"}></Route>
                 <Route exact path={"/"}>
@@ -156,10 +145,7 @@ export function Application() {
                         </li>
                     </ul>
                 </Route>
-                <Route>
-                    <h1>Not found</h1>
-                </Route>
-            </Switch>
+                </Switch>)}
             </main>
         </BrowserRouter>
     );
