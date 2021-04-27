@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { fetchJson } from "../http";
+import { fetchJSON } from "../http";
 
 export function LoginCallbackPage({ onAccessToken, identityProvider }) {
     const hash = Object.fromEntries(
@@ -31,7 +31,7 @@ export function LoginCallbackPage({ onAccessToken, identityProvider }) {
             return;
         }
         if (code) {
-            const { token_endpoint } = await fetchJson(identityProvider.discoveryURL);
+            const { token_endpoint } = await fetchJSON(identityProvider.discoveryURL);
             const params = {
                 grant_type: "authorization_code",
                 code,
@@ -39,7 +39,7 @@ export function LoginCallbackPage({ onAccessToken, identityProvider }) {
                 redirect_uri: window.location.origin + "/login/callback",
                 code_verifier: loginState.code_verifier,
             };
-            const tokenResponse = await fetchJson(token_endpoint, {
+            const tokenResponse = await fetchJSON(token_endpoint, {
                 method: "POST",
                 body: new URLSearchParams(params),
             });

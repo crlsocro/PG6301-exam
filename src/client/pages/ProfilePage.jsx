@@ -17,7 +17,7 @@ export function ProfilePage({ loadProfile }) {
             </div>
         );
     }
-
+//TODO: Legge til legge til bruker her
     return (
         <div>
             <h1>Profile</h1>

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Link } from "react-router-dom";
 import { Route, Switch } from "react-router";
 import { ProfilePage } from "./pages/ProfilePage";
-import {fetchJson, postJson} from "./http";
+import {fetchJSON, postJSON} from "./http";
 import { LoginPage } from "./pages/LoginPage";
 import { LoginCallbackPage } from "./pages/LoginCallbackPage";
 import {ChatPage} from "./pages/ChatPage";
@@ -47,23 +47,23 @@ export function Application() {
     };
 
     async function loadProfile() {
-        return fetchJson("/api/profile", {
+        return fetchJSON("/api/profile", {
             headers: {
                 ...(access_token ? { Authorization: `Bearer ${access_token}` } : {}),
             },
         });
     }
     const userApi = {
-        listUsers: async () => await fetchJson("/api/users"),
-        getUser: async (id) => await fetchJson(`/api/users/${id}`),
+        listUsers: async () => await fetchJSON("/api/users"),
+        getUser: async (id) => await fetchJSON(`/api/users/${id}`),
         createUser: async ({firstName, lastName, email}) =>{
-            return postJson("/api/users", {
+            return postJSON("/api/users", {
                 method: "POST",
                 json: {firstName, lastName, email},
             });
         },
         updateUser: async (id, {firstName, lastName, email}) =>
-            postJson(`/api/users/${id}`, {
+            postJSON(`/api/users/${id}`, {
                 method: "PUT",
                 json: {firstName, lastName, email},
             }),

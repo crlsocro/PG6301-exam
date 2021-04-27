@@ -1,5 +1,5 @@
 import * as React from "react";
-import { fetchJson } from "../http";
+import { fetchJSON } from "../http";
 
 export function randomString(length) {
     const possible =
@@ -26,7 +26,7 @@ export function LoginPage({ identityProvider }) {
     const { discoveryURL, client_id, scope } = identityProvider;
 
     async function handleLogin() {
-        const { authorization_endpoint } = await fetchJson(discoveryURL);
+        const { authorization_endpoint } = await fetchJSON(discoveryURL);
 
         const state = randomString(30);
         const code_verifier = randomString(50);
