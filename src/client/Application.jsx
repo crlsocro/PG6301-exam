@@ -1,7 +1,7 @@
 import * as React from "react";
 import {useEffect, useState} from "react";
 import {BrowserRouter, Link} from "react-router-dom";
-import {Route, Switch} from "react-router";
+import {Redirect, Route, Switch} from "react-router";
 import {ProfilePage} from "./pages/ProfilePage";
 import {fetchJSON, postJSON} from "./http";
 import {LoginPage} from "./pages/LoginPage";
@@ -75,7 +75,7 @@ export function Application() {
                 json: {text},
             });
         },
-        updateUser: async (id, {text}) =>
+        updateMessage: async (id, {text}) =>
             postJSON(`/api/messages/${id}`, {
                 method: "PUT",
                 json: {text},
@@ -89,20 +89,25 @@ export function Application() {
             </nav>
             <main>
             <Switch>
-                <Route exact path={"/Register"}>
-                    <RegisterPage userApi={userApi} />
+                <Route  path={"/Register"}>
+                    {!access_token ? (<Redirect to ={"/"}/>):
+                        (<RegisterPage userApi={userApi} />)}
                 </Route>
                 <Route exact path={"/ShowUsers"}>
-                    <ListUserPage userApi={userApi}/>
+                    {!access_token ? (<Redirect to ={"/"}/>):
+                        (<ListUserPage userApi={userApi}/>)}
                 </Route>
                 <Route path={"/users/:id/edit"}>
-                    <EditUserPage userApi={userApi} />
+                    {!access_token ? (<Redirect to ={"/"}/>):
+                        (<EditUserPage userApi={userApi} />)}
                 </Route>
                 <Route exact path={"/CreateMessage"}>
-                    <CreateMessages userApi = {userApi} messageApi={messageApi}/>
+                    {!access_token ? (<Redirect to ={"/"}/>):
+                        (<CreateMessages userApi = {userApi} messageApi={messageApi}/>)}
                 </Route>
                 <Route exact path={"/Chat"}>
-                    <ChatPage />
+                    {!access_token ? (<Redirect to ={"/"}/>):
+                        (<ChatPage />)}
                 </Route>
                 <Route path={"/profile"}>
                     <ProfilePage loadProfile={loadProfile} />
@@ -111,13 +116,11 @@ export function Application() {
                     <LoginPage identityProvider={microsoftIdentityProvider} />
                 </Route>
                 <Route path={"/login/callback"}>
-                    <LoginCallbackPage
-                        identityProvider={microsoftIdentityProvider}
-                        onAccessToken={(access_token) => setAccess_token(access_token)}
-                    />
+                    <LoginCallbackPage identityProvider={microsoftIdentityProvider} onAccessToken={access_token => setAccess_token(access_token)}/>
                 </Route>
                 <Route exact path={"/messages"}>
-                    <ListMessages messageApi={messageApi}/>
+                    {!access_token ? (<Redirect to ={"/"}/>):
+                        (<ListMessages messageApi={messageApi}/>)}
                 </Route>
                 <Route exact path={"/RespondToMessage"}></Route>
                 <Route exact path={"/"}>

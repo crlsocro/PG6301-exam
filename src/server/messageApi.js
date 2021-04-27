@@ -11,6 +11,7 @@ const messages = [
         text: "Express"
     },
 ];
+
 messageApi.get("", (req, res) => {
     console.log(messages);
     res.json(messages);
@@ -33,6 +34,7 @@ messageApi.post("", (req, res) => {
     messages.push({text, id: messages.length + 1});
     res.status(201).end();
 });
+
 module.exports = messageApi;
 
 

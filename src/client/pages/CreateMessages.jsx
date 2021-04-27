@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import Select from 'react-select'
+
 import { Link } from "react-router-dom";
 import {useLoading} from "../views/useLoading";
 import {ErrorView} from "../views/ErrorView";
@@ -7,7 +7,8 @@ import {LoadingView} from "../views/LoadingView";
 import {InputField} from "../views/InputField";
 import {ChatView} from "../views/Chatview";
 
-export function CreateMessages({userApi}) {
+export function CreateMessages({userApi, messageApi}) {
+    const [text, setText] = useState("");
     const { data: users, error, loading, reload } = useLoading(
         async () => await userApi.listUsers()
     );
@@ -20,9 +21,13 @@ export function CreateMessages({userApi}) {
         return <LoadingView />;
     }
 
+    async function submit(e) {
+        e.preventDefault();
+        await messageApi.createMessage({text});
+    }
     return (
         <>
-            <h1>List Users</h1>
+            <h1>Send Message</h1>
             <select
                 onChange={(e) => (e.target.value)}
             >
@@ -30,6 +35,10 @@ export function CreateMessages({userApi}) {
                     <option value={`/users/${id}`}>{firstName} {lastName}</option>
             ))}
             </select>
+            <form onSubmit={submit}>
+            <InputField label={"Message"} value={text} onChangeValue={setText} />
+            <button>Submit</button>
+            </form>
         </>
     );
 
