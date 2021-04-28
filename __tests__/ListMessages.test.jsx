@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { MemoryRouter } from "react-router";
 import {ListMessages} from "../src/client/pages/ListMessages";
-import {ListUserPage} from "../src/client/pages/ListUserPage";
+
 
 
 async function renderForTest(child) {

@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`create text on page show users on dom 1`] = `"<h1>List Users</h1><li><a href=\\"/users/1/edit\\">Harald Svensken, </a></li>"`;

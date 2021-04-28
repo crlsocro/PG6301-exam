@@ -1,11 +1,8 @@
 import React, {useState} from "react";
-
-import { Link } from "react-router-dom";
 import {useLoading} from "../views/useLoading";
 import {ErrorView} from "../views/ErrorView";
 import {LoadingView} from "../views/LoadingView";
 import {InputField} from "../views/InputField";
-import {ChatView} from "../views/Chatview";
 
 export function CreateMessages({userApi, messageApi}) {
     const [text, setText] = useState("");

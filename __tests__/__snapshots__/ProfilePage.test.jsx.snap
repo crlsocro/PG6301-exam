@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ProfilePage List profile 1`] = `"<div><div>Ola</div><div>Nordmann</div></div>"`;
+
+exports[`ProfilePage can show error message 1`] = `"<div>Something went wrong: Error: Failed to load</div>"`;

@@ -11,6 +11,9 @@ async function renderForTest(child) {
     });
     return container;
 }
+const userApi = {
+    listUsers: async () => [{ id: 1, firstName: "Harald", lastName: "Svensken" }],
+};
 
 describe("create text on page", () => {
     it("create text", async () =>{
@@ -25,5 +28,22 @@ describe("create text on page", () => {
         expect(createMessage).toBeCalledWith({
             text: "hei",
         });
+    });
+    it("show users on dom", async () => {
+        const container = document.createElement("div");
+        document.body.appendChild(container);
+        await act(async () => {
+            ReactDOM.render(
+                <MemoryRouter>
+                    <CreateMessages userApi={userApi}/>
+                </MemoryRouter>,
+                container
+            );
+        });
+
+        expect(container.innerHTML).toMatchSnapshot();
+        expect(container.querySelector("div").textContent).toEqual(
+            "Harald Svensken"
+        );
     });
 });

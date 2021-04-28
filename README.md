@@ -1,84 +1,76 @@
-# PG6301 Exam - POKEMON
+# PG6301 Exam
 
-PG6301 exam 2020, a "gatcha" game (Pokemon collector)
+PG6301 exam 2021, Messaging system
 
 ## How to run the app:
-### Make sure we have all dependencies before running the app:
 
-    yarn install
+    npm install
 
 ### Start the app with:
 
-    yarn dev
+    npm start
 
-    OR
+### app is now available on localhost:3000
 
-    yarn build
-    yarn start
 
-### app is now available on localhost:8080
-
-### No premade user, please use the SignUp button to create user first.
 
 ### Test command:
+    npm test or npm test -- --coverage --collectCoverageFrom "src/**/*.{js,jsx,ts,tsx}"
 
-    yarn test
 
-## Test coverage on delievery:
 
-No testing on collection.jsx, index.jsx or server.js
+###TESTS
 
-No failed tests
-
-File              |  % Stmts | % Branch |  % Funcs |  % Lines |
+File              |  % Stmts | % Branch |  % Funcs | % Lines  |   
 ------------------|----------|----------|----------|----------|
-All files         |    67.53 |    54.72 |    72.73 |    67.15 |
-
-## Braindump
-Throughout the exam i struggled to stick to my code. Started over 2 times and ended up using alot of our lecturer's code from a couple of lessons and exercises. (Linked in files and at the bottom of readme).
-
-This 48 hour deadline is really stressful and forced me to learn alot more, i still need to get a better understanding of react and route setups etc.
-
-The structure is as spesified in the assignment text.
-
-I think i use too much time on the different functions, as you can see in most of my code and especially in file: collections.jsx i've hardcoded alot where i probably should have made some pretty functions. I'm sure i have some reduncancy as my focus throughout the exam was to get the functionality down first. Time flies by when you have fun!
-
-I'm pretty satisfied with the testing, but collection.jsx have no tests as of delievery.
-
-I think i've followed the instructions, which are terrifying btw, for the most part. I've added some comment below on each task.
-
-I think i was getting close to getting a working collection page, but that's where i had to stop at this time.
-
-The diffent technologies used are that same as in class.
-react, react-dom, react-router-dom, express, passport, enzyme etc.
+All files         |    40.48 |    51.43    |    43.04 |  41.28   |
 
 
-## Parts/Task
-- [X] **R1 - Ok, Logo = home**
+##Exam
+Jeg synes denne eksamenen har vært utrolig lærerik og krevende, 
+men jeg er fornøyd med funksjonaliteten til applikasjonen og det endelige produktet.
 
-- [X] **R2 - Ok, the required RESTful APIs that are not in use have tests. (delete:deletepokemon and put:updatepokemon in file: lootbox-api.js). Other RESTFUL APIs are being used throughout the code.**
+##Følgende har jeg med i applikasjon:
 
-- [X] **R3 - Ok**
+Jeg har gått utifra at man har en log in side som man bruker for å logge inn med Active Directory.
+Når man har logget inn, vil man ha muligheten til å se på profil. Man kan også bruke brukere i applikasjonen, legge til brukere,
+lage en melding, hente meldinger og åpne chat-applikasjonen. For å bruke chat-applikasjonen må man åpne en ny fane(gjerne inkognito),
+og logge inn der med en annen bruker. Deretter har man muligheten til å chatte med hverandre. Men med en gang man går ut vil data bli tapt og man må skrive på nytt
+for å fetche ny data.
 
-- [ ] *R4 - Not 100% sure, probably missed alot*
+##Krav til oppgaven:
+1. A logged in use should be able to register more users in the system
+   Users should have properties first name, last name and email address
+   Optionally, users can have description and picture
+   
+2. A logged-in user should be able to create messages that are sent to one or more users
+   
+3. Users should be able to see messages where they are a recipient or sender
+   
+4. Users should be able to respond to messages
 
-- [ ] R5 - Not started
+##Ting jeg ikke har fått med...
+* Jeg hadde først en funskjonalitet som gjorde at man måtte logge inn for å utføre forksjellige oppgaver, men rett før jeg skulle levere ville ikke react bruke den metoden lenger
+      og jeg fant ikke bug'en.
+  
+* Jeg har en delvis sende meldinger til brukere, men fikk bare sendt den til express og ikke lagt til brukeren.
 
-- [X] **T1 - 9 pokemons.**
+*Jeg har delvis chat løsning, men meldinger blir ikke lagret
 
-- [X] **T2 - The 9 pokemons is listed in file: pokemonlist.jsx**
+##Bruk av kode:
+Jeg har vært inspirert av forelesningene, spesielt Johannes sine og har marker litt hvor jeg har gjort det. Det kan være steder hvor jeg har glemt det...
 
-- [X] **T3 - collection.jsx**
+Kandidat nr: 8041    Spurte meg om hjelp til litt kode. Dette er min kodesnipper som personen har blitt tildelt fra meg:
 
-- [ ] *T4 - This is as far as i got, i started making the function to open 3 lootboxes. The function itself works, but nothing is saved to the user. Won't check it of, because it's unclear i need to save collection to a user or a proof of concept is enough.*
+                      userApi
 
-- [ ] T5 - Not started
+                      ListUsers.test 
 
-- [ ] T6 - Not started
+                      UserApi.test 
 
-### Files used and/or extend/modified from:
-[arcuri82.github - Les07](https://github.com/arcuri82/web_development_and_api_design/tree/master/les07)
+ola@hk2021pg6301.onmicrosoft.com
+Tuwa4324
+Luna6948
 
-[arcuri82 github - quiz-game part-07](https://github.com/arcuri82/web_development_and_api_design/tree/master/exercise-solutions/quiz-game/part-07)
-
-[arcuri82 github - quiz-game part-10](https://github.com/arcuri82/web_development_and_api_design/tree/master/exercise-solutions/quiz-game/part-10)
+kari@hk2021pg6301.onmicrosoft.com
+Luna6948

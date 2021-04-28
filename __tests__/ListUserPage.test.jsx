@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import { ListUserPage } from "../src/client/pages/ListUserPage"
 import { MemoryRouter } from "react-router";
-import {EditUserPage} from "../src/client/pages/EditUserPage";
+
 
 
 async function renderForTest(child) {

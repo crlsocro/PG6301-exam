@@ -69,13 +69,12 @@ export function Application() {
             }),
     };
 
-
-        // This code does not lok pretty, but:  {!access_token?(<Redirect to ={"/login"}/>):(<Switch>
-        //Will force the application to start on loginPage, and you can not do anything/redirect yourself to another pages
-        //So, to escape this situation, you will have to login
     return (
         <BrowserRouter>
             <main>
+                <nav>
+                    <Link to={"/"}>Home</Link>
+                </nav>
                 <Switch>
                     <Route path={"/profile"}>
                         <ProfilePage loadProfile={loadProfile} />
@@ -86,13 +85,6 @@ export function Application() {
                     <Route path={"/login/callback"}>
                         <LoginCallbackPage identityProvider={microsoftIdentityProvider} onAccessToken={access_token => setAccess_token(access_token)}/>
                     </Route>
-                </Switch>
-
-
-                {!access_token?(<Redirect to ={"/login"}/>):(<Switch>
-                    <nav>
-                        <Link to={"/"}>Home</Link>
-                    </nav>
                 <Route path={"/Register"}>
                     <RegisterPage userApi={userApi} />
                 </Route>
@@ -111,7 +103,6 @@ export function Application() {
                 <Route exact path={"/messages"}>
                        <ListMessages messageApi={messageApi}/>
                 </Route>
-                <Route exact path={"/RespondToMessage"}></Route>
                 <Route exact path={"/"}>
                     <h1>Message Application</h1>
                     <ul>
@@ -138,14 +129,11 @@ export function Application() {
                             <Link to={"/messages"}>See Messages</Link>
                         </li>
                         <li>
-                            <Link to={"/RespondToMessage"}>Respond to Message</Link>
-                        </li>
-                        <li>
                             <Link to={"/chat"}>Chat</Link>
                         </li>
                     </ul>
                 </Route>
-                </Switch>)}
+                </Switch>
             </main>
         </BrowserRouter>
     );
