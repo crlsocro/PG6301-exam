@@ -68,9 +68,3 @@ Kandidat nr: 8041    Spurte meg om hjelp til litt kode. Dette er min kodesnipper
 
                       UserApi.test 
 
-ola@hk2021pg6301.onmicrosoft.com
-Tuwa4324
-Luna6948
-
-kari@hk2021pg6301.onmicrosoft.com
-Luna6948
