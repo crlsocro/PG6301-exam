@@ -4,7 +4,7 @@ PG6301 exam 2021, Messaging system
 
 This exam is programmed in react and npm/node.js.
 
-The exam was graded A 
+The exam received the grade A
 
 ## How to run the app:
 
