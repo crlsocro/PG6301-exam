@@ -23,18 +23,18 @@ The exam received the grade A
 
 
 
-###TESTS
+### TESTS
 
 File              |  % Stmts | % Branch |  % Funcs | % Lines  |   
 ------------------|----------|----------|----------|----------|
 All files         |    40.48 |    51.43    |    43.04 |  41.28   |
 
 
-##Exam
+## Exam
 Jeg synes denne eksamenen har vært utrolig lærerik og krevende, 
 men jeg er fornøyd med funksjonaliteten til applikasjonen og det endelige produktet.
 
-##Følgende har jeg med i applikasjon:
+## Følgende har jeg med i applikasjon:
 
 Jeg har gått utifra at man har en log in side som man bruker for å logge inn med Active Directory.
 Når man har logget inn, vil man ha muligheten til å se på profil. Man kan også bruke brukere i applikasjonen, legge til brukere,
